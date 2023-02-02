@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const checkLogin = require('../middlewares/login');
 const Resume = require('../models/resume');
+const Apply = require('../models/apply');
 
 var nodemailer = require('nodemailer');
 
@@ -12,7 +13,13 @@ var transporter = nodemailer.createTransport({
     }
   });
 
-router.get('/', checkLogin, async (req,res,next)=>{
+router.get('/:jobId', checkLogin, async (req,res,next)=>{
+  var applyData = new Apply({
+    userId: req.session.userid,
+    jobId: req.params.jobId,
+  });
+  await applyData.save();
+  
   var userData = await Resume.findOne({userId: req.session.userid}).populate('userId');
   console.log(userData);
   

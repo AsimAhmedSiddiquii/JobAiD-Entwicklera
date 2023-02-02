@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload="start()">
 	<div class="container">
 		<!-- 1st Row -->
 		<div class="row">
@@ -23,7 +23,9 @@
 					<div class="card-body">
 						<h2 id="blogTitle" class="text-center mt-2">Entwicklera</h2>
 						<h4 id="desc" class="text-justify mt-4 mb-4"></h4>
-
+						<div class="text-center mt-3">
+							<span id="action"></span>
+						</div>						
 						<button type="submit" onclick="next()" class="btn btn-primary">Next &#8594</button>
 
 					</div>
@@ -50,7 +52,7 @@
 	var index = 0
 	var data = [<%- blogData %>];
 
-	setData(index);
+	setData();
 
 	function setData() {
 		document.getElementById('blogTitle').innerText = data[index].title;
@@ -66,7 +68,51 @@
 			index = 0
 			setData()
 		}
-	} 
+		start();
+	}
+</script>
+
+<script>
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+	var action = document.getElementById('action');
+
+	let speech = new SpeechSynthesisUtterance();
+	speech.lang = "en-US";
+	speech.volume = 1;
+	speech.rate = 1;
+	speech.pitch = 1;
+
+	if (!isChrome) {
+		alert('Voice input not available');
+	}
+
+	function start() {
+		var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+		var recognition = new SpeechRecognition();
+
+		speech.text = 'Blog Title '+ data[index].title + '. Blog Description' + data[index].text + '. To move to Next Blog, Say Next';
+		window.speechSynthesis.speak(speech);
+		speech.onend = function (event) {
+			recognition.start();
+
+			recognition.onstart = function () {
+				action.innerHTML = "<small>listening, please speak…</small>";
+			};
+
+			recognition.onresult = function (event) {
+				var transcript = event.results[0][0].transcript;
+				var confidence = event.results[0][0].confidence;
+				console.log(transcript + '1');
+				action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+				recognition.stop();
+				if (transcript.includes('Next')) {
+					next();
+				}
+			};
+		};
+	}
+
 </script>
 
 </html>
