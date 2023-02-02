@@ -2213,8 +2213,8 @@ progress {
 
 .form-control-lg {
   border-radius: 0.3rem;
-  font-size: 0.925rem;
-  min-height: calc(2.1875rem + 2px);
+  font-size: 16px;
+  min-height: calc(2.1875rem + 12px);
   padding: 0.4rem 1rem;
 }
 
@@ -2953,9 +2953,11 @@ fieldset:disabled .btn {
 }
 
 .btn-primary {
-  background-color: #3b7ddd;
+  background-color: #871282;
   border-color: #3b7ddd;
   color: #fff;
+  height: 50px;
+  width: 100%;
 }
 
 .btn-check:focus + .btn-primary,
@@ -3647,7 +3649,7 @@ fieldset:disabled .btn {
 .btn-group-lg > .btn,
 .btn-lg {
   border-radius: 0.3rem;
-  font-size: 0.925rem;
+  font-size: 16px;
   padding: 0.4rem 1rem;
 }
 
@@ -4763,7 +4765,7 @@ fieldset:disabled .btn {
 .card {
   word-wrap: break-word;
   background-clip: border-box;
-  background-color: #fff;
+  background-color: #ffa535;
   border: 0 solid transparent;
   border-radius: 0.25rem;
   display: flex;
