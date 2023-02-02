@@ -7,30 +7,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<title>Home Page | AiD</title>
+	<link rel="icon" type="image/png" href="/img/logo.png">
 
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body onload="start()">
 	<div class="container">
 		<!-- 1st Row -->
 		<div class="row">
+			<div class="col-md-12">
+				<div class="card-body text-center">
+					<h1>User Dashboard</h1>
+				</div>
+			</div>
 			<!-- Jobs Button -->
 			<div class="col-md-6">
-				<div class="card mt-5" onclick="location.href='/jobs'">
+				<div class="card" onclick="location.href='/job'">
 					<div class="card-body text-center">
-						<i class="fa fa-briefcase" style="font-size: 150px;" aria-hidden="true"></i> <br>
+						<i class="fa fa-briefcase" style="font-size: 150px; color: black;" aria-hidden="true"></i> <br>
 						<h1>Jobs</h1>
 					</div>
 				</div>
 			</div>
 			<!-- Online Training Button -->
 			<div class="col-md-6" onclick="location.href='/'">
-				<div class="card mt-5">
+				<div class="card">
 					<div class="card-body text-center">
-						<i class="fa fa-vcard" style="font-size: 130px;" aria-hidden="true"></i> <br><br>
+						<i class="fa fa-vcard" style="font-size: 130px; color: black;" aria-hidden="true"></i> <br><br>
 						<h1>Online Training</h1>
 					</div>
 				</div>
@@ -42,7 +48,8 @@
 			<div class="col-md-6">
 				<div class="card mt-3">
 					<div class="card-body text-center">
-						<i class="fa fa-file-text" style="font-size: 130px;" aria-hidden="true"></i> <br><br>
+						<i class="fa fa-file-text" style="font-size: 130px; color: black;" aria-hidden="true"></i>
+						<br><br>
 						<h1>Resume</h1>
 					</div>
 				</div>
@@ -51,7 +58,7 @@
 			<div class="col-md-6">
 				<div class="card mt-3">
 					<div class="card-body text-center">
-						<i class="fa fa-comments" style="font-size: 150px;" aria-hidden="true"></i> <br>
+						<i class="fa fa-comments" style="font-size: 150px; color: black;" aria-hidden="true"></i> <br>
 						<h1>Blogs</h1>
 					</div>
 				</div>
@@ -60,5 +67,54 @@
 	</div>
 
 </body>
+
+<script>
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+	var action = document.getElementById('action');
+
+	let speech = new SpeechSynthesisUtterance();
+	speech.lang = "en-US";
+	speech.volume = 1;
+	speech.rate = 1;
+	speech.pitch = 1;
+
+	if (!isChrome) {
+		alert('Voice input not available');
+	}
+
+	function start() {
+		var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+		var recognition = new SpeechRecognition();
+
+		speech.text = 'Welcome to the Dashboard, you need to choose the section to proceed, say Jobs, Training, Resume, Blogs';
+		window.speechSynthesis.speak(speech);
+		speech.onend = function (event) {
+			recognition.start();
+
+			recognition.onstart = function () {
+				action.innerHTML = "<small>listening, please speak…</small>";
+			};
+
+			recognition.onresult = function (event) {
+				var transcript = event.results[0][0].transcript;
+				var confidence = event.results[0][0].confidence;
+				console.log(transcript + '1');
+				action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+				recognition.stop();
+				if (transcript.includes('jobs')) {
+					askForEmail();
+				} else if (transcript.includes('training')) {
+					window.location.href = '/training'
+				} else if (transcript.includes('resume')) {
+					window.location.href = '/resume'
+				} else if (transcript.includes('blogs')) {
+					window.location.href = '/blogs'
+				}
+			};
+		};
+	}
+
+</script>
 
 </html>

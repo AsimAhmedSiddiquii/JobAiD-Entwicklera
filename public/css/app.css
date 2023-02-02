@@ -2019,6 +2019,8 @@ progress {
 
 .form-label {
   margin-bottom: 0.5rem;
+  font-size: 16px;
+  color: #000;
 }
 
 .col-form-label {
@@ -4763,6 +4765,7 @@ fieldset:disabled .btn {
 }
 
 .card {
+  cursor: pointer;
   word-wrap: break-word;
   background-clip: border-box;
   background-color: #ffa535;
@@ -12464,6 +12467,9 @@ pre.snippet {
 
 a {
   cursor: pointer;
+  font-size: 16px;
+  color: #871282;
+  font-weight: 600;
 }
 
 .wrapper {
