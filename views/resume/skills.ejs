@@ -5,13 +5,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<title>Skills | AiD</title>
 
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -31,15 +31,105 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<form>
+									<form action="/resume/skill" method="post">
 										<div class="mb-3">
 											<label class="form-label">Skills</label>
-											<input class="form-control form-control-lg" type="text" id="skill" name="skill" placeholder="Enter skill" />
-											<input class="form-control form-control-lg" type="hidden" id="skills" name="skills" />
+											<div>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Dancing">
+													<span class="form-check-label">
+														Dancing
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Singing">
+													<span class="form-check-label">
+														Singing
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Acting">
+													<span class="form-check-label">
+														Acting
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Developer">
+													<span class="form-check-label">
+														Developer
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Freelancer">
+													<span class="form-check-label">
+														Freelancer
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Teaching">
+													<span class="form-check-label">
+														Teaching
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="MS Office">
+													<span class="form-check-label">
+														MS Office
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Technical">
+													<span class="form-check-label">
+														Technical
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Advertising">
+													<span class="form-check-label">
+														Advertising
+														<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Teaching">
+													<span class="form-check-label">
+														Teaching
+													</span>
+												</label>
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Marketing">
+													<span class="form-check-label">
+														Marketing
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Sales">
+													<span class="form-check-label">
+														Sales
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Administration">
+													<span class="form-check-label">
+														Administration
+														<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Teaching">
+													<span class="form-check-label">
+														Teaching
+													</span>
+												</label>
+													</span>
+												</label>
+												<label class="form-check form-check-inline">
+													<input class="form-check-input" type="checkbox" name="skills" value="Nursing">
+													<span class="form-check-label">
+														Nursing
+													</span>
+												</label>
+											</div>
 										</div>
 										<div class="mt-3">
-											<button type="button" onclick="addSkills()" style="float: left;" class="btn btn-lg btn-outline-primary">Add Skill &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-											<button type="submit" style="float: right;" class="btn btn-lg btn-primary">Next &nbsp; <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+											<button type="submit" style="float: right;"
+												class="btn btn-lg btn-primary">Submit </a>
 										</div>
 									</form>
 								</div>
@@ -53,16 +143,6 @@
 	</main>
 
 	<script src="/js/app.js"></script>
-	<script>
-		var skills = [];
-		function addSkills() {
-			skills.push(document.getElementById('skill').value);
-			document.getElementById('skills').value = skills;
-			document.getElementById('skill').value = "";
-			document.getElementById('skill').focus();
-
-		}
-	</script>
 </body>
 
 </html>
