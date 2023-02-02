@@ -5,16 +5,28 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<title>Skills | AiD</title>
 
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" rel="stylesheet" />
+
+
+	<style>
+		label.btn:not(.btn-flat) {
+			background-color: #35DDE0;
+			color: #333;
+		}
+	</style>
 </head>
 
-<body>
+<body onload="start()">
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
@@ -31,15 +43,67 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<form>
+									<form action="/resume/skill" method="post" role="form" id="skillForm">
 										<div class="mb-3">
-											<label class="form-label">Skills</label>
-											<input class="form-control form-control-lg" type="text" id="skill" name="skill" placeholder="Enter skill" />
-											<input class="form-control form-control-lg" type="hidden" id="skills" name="skills" />
+											<label class="form-label">Select your Skills</label> <br>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="dancing" name="skills"
+													value="Dancing" />Dancing
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="singing" name="skills"
+													value="Singing" />Singing
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="acting" name="skills" value="Acting" />Acting
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="developer" name="skills"
+													value="Developer" />Developer
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="freelancer" name="skills"
+													value="Freelancer" />Freelancer
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="teaching" name="skills"
+													value="Teaching" />Teaching
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="ms_office" name="skills"
+													value="MS Office" />MS Office
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="technical" name="skills"
+													value="Technical" />Technical
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="advertising" name="skills"
+													value="Advertising" />Advertising
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="marketing" name="skills"
+													value="Marketing" />Marketing
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="sales" name="skills" value="Sales" />Sales
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="administration" name="skills"
+													value="Administration" />Administration
+											</label>
+											<label class="waves-effect waves-light btn btn-flat">
+												<input type="checkbox" id="nursing" name="skills"
+													value="Nursing" />Nursing
+											</label>
 										</div>
+										<div class="text-center mt-3">
+											<span id="action"></span>
+										</div>
+										<input type="hidden" name="hiddenSkills" id="hiddenSkills">
 										<div class="mt-3">
-											<button type="button" onclick="addSkills()" style="float: left;" class="btn btn-lg btn-outline-primary">Add Skill &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-											<button type="submit" style="float: right;" class="btn btn-lg btn-primary">Next &nbsp; <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+											<button type="submit" style="float: right;"
+												class="btn btn-lg btn-primary">Submit </a>
 										</div>
 									</form>
 								</div>
@@ -53,15 +117,126 @@
 	</main>
 
 	<script src="/js/app.js"></script>
-	<script>
-		var skills = [];
-		function addSkills() {
-			skills.push(document.getElementById('skill').value);
-			document.getElementById('skills').value = skills;
-			document.getElementById('skill').value = "";
-			document.getElementById('skill').focus();
 
+	<script>
+		$('label.btn').on('click', 'input', function (e) {
+			e.stopPropagation();
+			$(this).attr('checked', !$(this).attr('checked'));
+			$(e.target).closest('label').toggleClass('btn-flat');
+		});
+	</script>
+
+	<script>
+		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+		var action = document.getElementById('action');
+
+		let speech = new SpeechSynthesisUtterance();
+		speech.lang = "en-US";
+		speech.volume = 1;
+		speech.rate = 1;
+		speech.pitch = 1;
+
+		if (!isChrome) {
+			alert('Voice input not available');
 		}
+
+		function start() {
+			var skills = []
+			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+			var recognition = new SpeechRecognition();
+
+			speech.text = 'Select your Skills';
+			window.speechSynthesis.speak(speech);
+			speech.onend = function (event) {
+				recognition.start();
+
+				recognition.onstart = function () {
+					action.innerHTML = "<small>listening, please speak…</small>";
+				};
+
+				recognition.onresult = function (event) {
+					var transcript = event.results[0][0].transcript;
+					var confidence = event.results[0][0].confidence;
+					console.log(transcript + '1');
+					action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+
+					if (transcript.includes('dancing')) {
+						document.getElementById("dancing").setAttribute('checked', 'checked');
+						document.getElementById("dancing").click();
+						skills.push(document.getElementById("dancing").value);
+					}
+					if (transcript.includes('singing')) {
+						document.getElementById("singing").setAttribute('checked', 'checked');
+						document.getElementById("singing").click();
+						skills.push(document.getElementById("singing").value);
+					}
+					if (transcript.includes('acting')) {
+						document.getElementById("acting").setAttribute('checked', 'checked');
+						document.getElementById("acting").click();
+						skills.push(document.getElementById("acting").value);
+					}
+					if (transcript.includes('developer')) {
+						document.getElementById("developer").setAttribute('checked', 'checked');
+						document.getElementById("developer").click();
+						skills.push(document.getElementById("developer").value);
+					}
+					if (transcript.includes('freelancer')) {
+						document.getElementById("freelancer").setAttribute('checked', 'checked');
+						document.getElementById("freelancer").click();
+						skills.push(document.getElementById("freelancer").value);
+					}
+					if (transcript.includes('teaching')) {
+						document.getElementById("teaching").setAttribute('checked', 'checked');
+						document.getElementById("teaching").click();
+						skills.push(document.getElementById("teaching").value);
+					}
+					if (transcript.includes('ms_office')) {
+						document.getElementById("ms_office").setAttribute('checked', 'checked');
+						document.getElementById("ms_office").click();
+						skills.push(document.getElementById("ms_office").value);
+					}
+					if (transcript.includes('technical')) {
+						document.getElementById("technical").setAttribute('checked', 'checked');
+						document.getElementById("technical").click();
+						skills.push(document.getElementById("technical").value);
+					}
+					if (transcript.includes('advertising')) {
+						document.getElementById("advertising").setAttribute('checked', 'checked');
+						document.getElementById("advertising").click();
+						skills.push(document.getElementById("advertising").value);
+					}
+					if (transcript.includes('marketing')) {
+						document.getElementById("marketing").setAttribute('checked', 'checked');
+						document.getElementById("marketing").click();
+						skills.push(document.getElementById("marketing").value);
+					}
+					if (transcript.includes('sales')) {
+						document.getElementById("sales").setAttribute('checked', 'checked');
+						document.getElementById("sales").click();
+						skills.push(document.getElementById("sales").value);
+					}
+					if (transcript.includes('administration')) {
+						document.getElementById("administration").setAttribute('checked', 'checked');
+						document.getElementById("administration").click();
+						skills.push(document.getElementById("administration").value);
+					}
+					if (transcript.includes('nursing')) {
+						document.getElementById("nursing").setAttribute('checked', 'checked');
+						document.getElementById("nursing").click();
+						skills.push(document.getElementById("nursing").value);
+					}
+					recognition.stop();
+
+					console.log(skills)
+					document.getElementById('hiddenSkills').value = skills
+
+
+					document.getElementById('skillForm').submit();
+				};
+			};
+		}
+
 	</script>
 </body>
 

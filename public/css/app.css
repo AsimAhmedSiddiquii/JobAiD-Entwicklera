@@ -472,7 +472,7 @@ progress {
 
 .lead {
   font-size: 1.09375rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .display-1 {
@@ -2019,6 +2019,8 @@ progress {
 
 .form-label {
   margin-bottom: 0.5rem;
+  font-size: 16px;
+  color: #000;
 }
 
 .col-form-label {
@@ -2268,6 +2270,7 @@ textarea.form-control-lg {
   -moz-padding-start: calc(0.85rem - 3px);
   -webkit-appearance: none;
   -moz-appearance: none;
+  height: 50px;
   appearance: none;
   background-color: #fff;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
@@ -4763,6 +4766,7 @@ fieldset:disabled .btn {
 }
 
 .card {
+  cursor: pointer;
   word-wrap: break-word;
   background-clip: border-box;
   background-color: #ffa535;
@@ -11830,8 +11834,8 @@ fieldset:disabled .btn {
 }
 
 .card-title {
-  color: #939ba2;
-  font-size: 0.925rem;
+  color: #000;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -12464,6 +12468,9 @@ pre.snippet {
 
 a {
   cursor: pointer;
+  font-size: 16px;
+  color: #871282;
+  font-weight: 600;
 }
 
 .wrapper {
