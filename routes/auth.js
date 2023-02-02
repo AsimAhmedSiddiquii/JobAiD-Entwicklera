@@ -57,7 +57,7 @@ router.post("/login", async (req, res, next) => {
         req.session.email = users[0].email;
         req.session.name = users[0].name;
         req.session.loggedIn = true;
-        res.redirect('/dashboard  ');
+        res.redirect('/dashboard');
       } else {
         res.json({ valErr: true });
       }
@@ -66,7 +66,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.get("/dashboard", (req, res, next) => {
-  res.render("");
+  res.render("home");
 });
 
 module.exports = router;

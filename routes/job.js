@@ -1,11 +1,10 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 
 const Resume = require("../models/resume");
 const Job = require("../models/job");
 
 router.get("/", (req, res, next) => {
-  console.log("Jobs page");
+  res.render('jobs')
 });
 
 router.get("/:userid", async (req, res, next) => {
