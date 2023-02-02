@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
-const blogsSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const blogSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  url: String,
+  text: { type: String, required: true },
+  url: { type: String, required: true }
 });
 
-module.exports = mongoose.model("blogs", blogsSchema);
+module.exports = mongoose.model("blogs", blogSchema);

@@ -40,10 +40,13 @@ const resumeRoute = require("./routes/resume");
 const trainingRoute = require("./routes/training");
 const jobRoute = require("./routes/job");
 const applyRoute = require("./routes/apply");
+const blogsRoute = require("./routes/blogs");
 
 app.use("/", authRoute);
 app.use("/resume", resumeRoute);
 app.use("/job", jobRoute);
+app.use("/apply", applyRoute);
+app.use("/blogs", blogsRoute);
 app.use("/training", trainingRoute);
 app.use("/apply", applyRoute);
 
