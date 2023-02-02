@@ -30,8 +30,7 @@ router.post("/register", async (req, res, next) => {
         });
         console.log(user);
         await user.save();
-
-        res.json({ msg: "success" });
+        res.redirect('/dashboard');
       }
     });
   }
@@ -55,12 +54,16 @@ router.post("/login", async (req, res, next) => {
         req.session.email = users[0].email;
         req.session.name = users[0].name;
         req.session.loggedIn = true;
-        res.json({ msg: "success" });
+        res.redirect('/dashboard  ');
       } else {
         res.json({ valErr: true });
       }
     });
   }
+});
+
+router.get("/dashboard", (req, res, next) => {
+  res.render("");
 });
 
 module.exports = router;
