@@ -3,14 +3,12 @@ const mongoose = require("mongoose");
 const User = require("./user");
 const workSchema = new mongoose.Schema({
   company_name: String,
-  start_date: { type: String },
-  end_date: { type: String },
-  description: { type: String },
+  role: { type: String },
+  yoe: { type: String },
 });
 
 const educationSchema = new mongoose.Schema({
   institute_name: String,
-  completed: String,
   degree_title: String,
 });
 
