@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 
 const Resume = require("../models/resume");
 const Job = require("../models/job");
@@ -14,7 +15,6 @@ router.get("/", async (req, res, next) => {
   } else {
     res.redirect('/resume')
   }
-  
 });
 
 module.exports = router;

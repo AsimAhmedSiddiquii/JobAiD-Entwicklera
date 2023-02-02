@@ -10,7 +10,7 @@ const workSchema = new mongoose.Schema({
 
 const educationSchema = new mongoose.Schema({
   institute_name: String,
-  completed: Boolean,
+  completed: String,
   degree_title: String,
 });
 

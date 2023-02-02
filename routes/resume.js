@@ -1,39 +1,50 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 
+const checkLogin = require('../middlewares/login');
+
 const Resume = require("../models/resume");
 
-router.get("/education", (req, res, next) => {
-  console.log('Education')
+router.get("/education", checkLogin, (req, res, next) => {
   res.render('resume/educational-details');
 });
 
-router.get("/work", (req, res, next) => {
-  res.render('resume/work-experience');
+router.get("/work", checkLogin, (req, res, next) => {
+  try {
+    res.render('resume/work-experience');
+  } catch(err){
+    console.log(err);
+  }
 });
 
-router.get("/skill", (req, res, next) => {
+router.get("/skill", checkLogin, (req, res, next) => {
   res.render('resume/skills');
 });
 
-router.post("/education", async (req, res, next) => {
-  var resume = await Resume.findOne({ userId: req.session.userid }).exec();
-  resume.education_experience = req.body;
-  await resume.save();
-  res.redirect("/resume/work-experience");
+router.post("/education", checkLogin, async (req, res, next) => {
+  try{
+    var resume = await Resume.findOne({ userId: req.session.userid }).exec();
+    resume.education_experience = req.body;
+    await resume.save();
+    res.redirect("/resume/work");
+  }
+  catch(err){
+    console.log(err);
+  }
 });
 
-router.post("/work", async (req, res, next) => {
+router.post("/work", checkLogin, async (req, res, next) => {
   var resume = await Resume.findOne({ userId: req.session.userid }).exec();
   resume.work_experience = req.body;
   await resume.save();
-  res.redirect("/resume/skills");
+  res.redirect("/resume/skill");
 });
 
-router.post("/skills", async (req, res, next) => {
+router.post("/skill", checkLogin, async (req, res, next) => {
   var resume = await Resume.findOne({ userId: req.session.userid }).exec();
   resume.skills = req.body.skills;
   await resume.save();
-  res.redirect("/resume/job");
+  res.redirect("/job");
 });
+
 module.exports = router;
