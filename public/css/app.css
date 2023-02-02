@@ -472,7 +472,7 @@ progress {
 
 .lead {
   font-size: 1.09375rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .display-1 {
@@ -2270,6 +2270,7 @@ textarea.form-control-lg {
   -moz-padding-start: calc(0.85rem - 3px);
   -webkit-appearance: none;
   -moz-appearance: none;
+  height: 50px;
   appearance: none;
   background-color: #fff;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
