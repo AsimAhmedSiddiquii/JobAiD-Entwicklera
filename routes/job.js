@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const checkLogin = require("../middlewares/login");
 
-const Resume = require("../models/resume");
 const Job = require("../models/job");
 
 router.get("/preferences", checkLogin, (req, res, next) => {
@@ -15,8 +14,10 @@ router.post("/preferences", async (req, res, next) => {
     location: { $regex: req.body.location, $options: "i" },
   }).exec();
 
-  console.log(jobs);
-  res.render("job/results", { jobs: jobs });
+  for (index = 0; index < jobs.length; index++) {
+    jobs[index].jobID = jobs[index]._id;
+  }
+  res.render("job/results", { jobs });
 });
 
 // router.get("/results", checkLogin, async (req, res, next) => {

@@ -37,7 +37,7 @@
 								<button type="button" onclick="next()" class="btn btn-primary">Next</button>
 							</div>
 							<div class="col-6">
-								<a href="" role="button" class="btn btn-primary">Apply Now</a>
+								<button type="button" onclick="navigate()" class="btn btn-primary">Apply</button>
 							</div>
 						</div>
 					</div>
@@ -48,7 +48,7 @@
 	</div>
 
 	<script>
-		function ObjectId(){}
+		function ObjectId(value){}
 		var data = [<%- jobs %>];
 		var index = 0;
 		setData();
@@ -73,6 +73,11 @@
 				index = 0
 				setData()
 			}
+		}
+
+		function navigate(){
+			console.log(data[index]._id)
+			window.location.href = '/apply/'+data[index].title + '/' + data[index].company;
 		}
 
 	</script>
