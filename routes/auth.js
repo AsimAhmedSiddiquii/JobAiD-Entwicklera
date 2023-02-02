@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 
 router.get("/register", (req, res, next) => {
-  res.json({ msg: "register page" });
+  res.render('register');
 });
 
 router.post("/register", async (req, res, next) => {
@@ -38,7 +38,7 @@ router.post("/register", async (req, res, next) => {
 });
 
 router.get("/login", (req, res, next) => {
-  res.json({ msg: "Login page" });
+  res.render("login");
 });
 
 router.post("/login", async (req, res, next) => {
