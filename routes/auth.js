@@ -3,9 +3,10 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 const User = require("../models/user");
+const Resume = require("../models/resume");
 
 router.get("/register", (req, res, next) => {
-  res.render('register');
+  res.render("register");
 });
 
 router.post("/register", async (req, res, next) => {
@@ -30,7 +31,9 @@ router.post("/register", async (req, res, next) => {
         });
         console.log(user);
         await user.save();
-        res.redirect('/dashboard');
+        const resume = new Resume({ userId: user._id });
+        await resume.save();
+        res.json({ msg: "success" });
       }
     });
   }
