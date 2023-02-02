@@ -54,10 +54,14 @@ router.post("/work", checkLogin, async (req, res, next) => {
 router.post("/skill", checkLogin, async (req, res, next) => {
   try {
     var resume = await Resume.findOne({ userId: req.session.userid }).exec();
-    resume.skills = req.body.hiddenSkills;
-    resume.skills = resume.skills[0].split(',');
+    if(req.body.hiddenSkills) {
+      resume.skills = req.body.hiddenSkills;
+      resume.skills = resume.skills[0].split(',');
+    } else {
+      resume.skills = req.body.skills;
+    }
     await resume.save();
-    res.redirect("/job");
+    res.redirect("/job/results");
   } catch (err) {
     console.log(err);
   }
