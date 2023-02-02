@@ -37,13 +37,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const authRoute = require("./routes/auth");
 const resumeRoute = require("./routes/resume");
+const trainingRoute = require("./routes/training");
 const jobRoute = require("./routes/job");
 const applyRoute = require("./routes/apply");
 
 app.use("/", authRoute);
 app.use("/resume", resumeRoute);
 app.use("/job", jobRoute);
-app.use("/apply", applyRoute);
+app.use("/training", trainingRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -58,7 +59,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
 module.exports = app;
