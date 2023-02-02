@@ -38,12 +38,13 @@ app.use(express.static(path.join(__dirname, "public")));
 const authRoute = require("./routes/auth");
 
 const resumeRoute = require("./routes/resume");
-
+const trainingRoute = require("./routes/training");
 const jobRoute = require("./routes/job");
 
 app.use("/", authRoute);
 app.use("/resume", resumeRoute);
 app.use("/job", jobRoute);
+app.use("/training", trainingRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
