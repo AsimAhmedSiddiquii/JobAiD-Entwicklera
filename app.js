@@ -39,11 +39,13 @@ const authRoute = require("./routes/auth");
 const resumeRoute = require("./routes/resume");
 const jobRoute = require("./routes/job");
 const applyRoute = require("./routes/apply");
+const blogsRoute = require("./routes/blogs");
 
 app.use("/", authRoute);
 app.use("/resume", resumeRoute);
 app.use("/job", jobRoute);
 app.use("/apply", applyRoute);
+app.use("/blogs", blogsRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
