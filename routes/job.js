@@ -4,8 +4,6 @@ const checkLogin = require('../middlewares/login');
 const Resume = require("../models/resume");
 const Job = require("../models/job");
 
-const checkLogin = require("../middlewares/login");
-
 router.get("/preferences", checkLogin, (req, res, next) => {
   res.render("job/preferences");
 });
