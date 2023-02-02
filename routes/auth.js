@@ -33,7 +33,7 @@ router.post("/register", async (req, res, next) => {
         await user.save();
         const resume = new Resume({ userId: user._id });
         await resume.save();
-        res.json({ msg: "success" });
+        res.redirect('/login');
       }
     });
   }
@@ -54,6 +54,7 @@ router.post("/login", async (req, res, next) => {
         res.json({ valErr: true });
       }
       if (result) {
+        req.session.userid = users[0]._id;
         req.session.email = users[0].email;
         req.session.name = users[0].name;
         req.session.loggedIn = true;
