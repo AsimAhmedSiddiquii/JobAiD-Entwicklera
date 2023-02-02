@@ -93,14 +93,12 @@
 			recognition.start();
 
 			recognition.onstart = function () {
-				action.innerHTML = "<small>listening, please speak…</small>";
 			};
 
 			recognition.onresult = function (event) {
 				var transcript = event.results[0][0].transcript;
 				var confidence = event.results[0][0].confidence;
-				console.log(transcript + '1');
-				action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+				console.log(transcript + '1');	
 				recognition.stop();
 				if (transcript.includes('jobs')) {
 					askForEmail();
