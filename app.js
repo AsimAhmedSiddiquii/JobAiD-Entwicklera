@@ -41,6 +41,7 @@ const trainingRoute = require("./routes/training");
 const jobRoute = require("./routes/job");
 const applyRoute = require("./routes/apply");
 const blogsRoute = require("./routes/blogs");
+const ngoRoute = require("./routes/ngo");
 
 app.use("/", authRoute);
 app.use("/resume", resumeRoute);
@@ -49,6 +50,7 @@ app.use("/apply", applyRoute);
 app.use("/blogs", blogsRoute);
 app.use("/training", trainingRoute);
 app.use("/apply", applyRoute);
+app.use("/ngo", ngoRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
