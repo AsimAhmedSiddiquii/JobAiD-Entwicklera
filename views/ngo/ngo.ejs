@@ -12,14 +12,14 @@
 	<link href="/css/app.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <title>Applied Jobs | AiD</title>
+  <title>List of Nearby NGOs | AiD</title>
 </head>
 
 <body>
   <div class="main">
     <nav class="navbar navbar-expand navbar-light navbar-bg">
-      <a class="sidebar-toggle js-sidebar-toggle">
-        <h1>Applied Jobs</h1>
+      <a class="sidebar-toggle js-sidebar-toggle" href="/dashboard">
+        <h1>List of Nearby NGOs</h1>
       </a>
 
       <div class="navbar-collapse collapse">
@@ -67,21 +67,23 @@
             <table id="historyTable" class="table table-hover my-0">
               <thead>
                 <tr>
-                  <th>Company Name</th>
-                  <th>Job Title</th>
-                  <th>Status</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Ratings</th>
+                  <th>Link</th>
                 </tr>
               </thead>
               <tbody>
-                <% if(appliedData.length !=0) { %>
-                  <% appliedData.forEach(function(data){ %>
+                <% if(ngos.length !=0) { %>
+                  <% ngos.forEach(function(data){ %>
                 <tr>
-                  <td><%= data.jobId.company %></td>
-                  <td><%= data.jobId.title %></td>
-                  <td><%= data.status %></td>
+                  <td><%= data.title %></td>
+                  <td><%= data.address %></td>
+                  <td><%= data.ratings %></td>
+                  <td><a href="https://justdial.com<%= data.url %>" class="btn btn-secondary">View More</a></td>
                 </tr>
                 <% }) } else { %>
-                  <td colspan="4"><center>No previous job history</center></td>
+                  <td colspan="4"><center>No ngos found</center></td>
                   <% } %>
               </tbody>
             </table>
