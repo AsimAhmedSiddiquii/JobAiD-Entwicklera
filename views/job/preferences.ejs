@@ -32,7 +32,7 @@
 							<div class="card-body">
 								<div class="m-sm-4">
 									<form action="/job/preferences" method="post" role="form" id="preferenceForm">
-                                        <div class="mb-3">
+										<div class="mb-3">
 											<label class="form-label">Role</label>
 											<select class="form-select mb-3" name="role">
 												<option selected value="">Select Role</option>
@@ -44,7 +44,7 @@
 												<option value="Talent Acquisition">Talent Acquisition</option>
 											</select>
 										</div>
-                                        <div class="mb-3">
+										<div class="mb-3">
 											<label class="form-label">Location</label>
 											<select class="form-select mb-3" name="location">
 												<option selected value="">Select Location</option>
@@ -61,7 +61,7 @@
 										<div class="text-center mt-3">
 											<span id="action"></span>
 										</div>
-                                        <div class="mt-4">
+										<div class="mt-4">
 											<button type="submit" style="float: right;"
 												class="btn btn-lg btn-primary">Search </a>
 										</div>
@@ -77,77 +77,80 @@
 
 	<script src="/js/app.js"></script>
 	<script>
-		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+		if (sessionStorage.getItem("voice") == true) {
+			start();
 
-		var action = document.getElementById('action');
+			var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-		let speech = new SpeechSynthesisUtterance();
-		speech.lang = "en-US";
-		speech.volume = 1;
-		speech.rate = 1;
-		speech.pitch = 1;
+			var action = document.getElementById('action');
 
-		if (!isChrome) {
-			alert('Voice input not available');
-		}
+			let speech = new SpeechSynthesisUtterance();
+			speech.lang = "en-US";
+			speech.volume = 1;
+			speech.rate = 1;
+			speech.pitch = 1;
 
-		function start() {
-			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-			var recognition = new SpeechRecognition();
+			if (!isChrome) {
+				alert('Voice input not available');
+			}
 
-			speech.text = 'Select your Preferences for Job, Select Your Role';
-			window.speechSynthesis.speak(speech);
-			speech.onend = function (event) {
-				recognition.start();
+			function start() {
+				var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+				var recognition = new SpeechRecognition();
 
-				recognition.onstart = function () {
-					action.innerHTML = "<small>listening, please speak…</small>";
+				speech.text = 'Select your Preferences for Job, Select Your Role';
+				window.speechSynthesis.speak(speech);
+				speech.onend = function (event) {
+					recognition.start();
+
+					recognition.onstart = function () {
+						action.innerHTML = "<small>listening, please speak…</small>";
+					};
+
+					recognition.onresult = function (event) {
+						var transcript = event.results[0][0].transcript;
+						var confidence = event.results[0][0].confidence;
+						console.log(transcript + '1');
+						action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+						document.getElementById('role').value = transcript;
+						recognition.stop();
+						askForLocation()
+					};
 				};
+			}
 
-				recognition.onresult = function (event) {
-					var transcript = event.results[0][0].transcript;
-					var confidence = event.results[0][0].confidence;
-					console.log(transcript + '1');
-					action.innerHTML = "<small>stopped listening, hope you are done…</small>"
-					document.getElementById('role').value = transcript;
-					recognition.stop();
-					askForLocation()
+			function askForLocation() {
+				var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+				var recognition = new SpeechRecognition();
+
+				speech.text = 'please choose your job location';
+				window.speechSynthesis.speak(speech);
+				speech.onend = function (event) {
+					recognition.start();
+
+					recognition.onstart = function () {
+						action.innerHTML = "<small>listening, please speak…</small>";
+					};
+
+					recognition.onresult = function (event) {
+						var transcript = event.results[0][0].transcript;
+						var confidence = event.results[0][0].confidence;
+						action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+						document.getElementById('location').value = transcript;
+						recognition.stop();
+						submitForm()
+					};
 				};
-			};
-		}
+			}
 
-		function askForLocation() {
-			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-			var recognition = new SpeechRecognition();
-
-			speech.text = 'please choose your job location';
-			window.speechSynthesis.speak(speech);
-			speech.onend = function (event) {
-				recognition.start();
-
-				recognition.onstart = function () {
-					action.innerHTML = "<small>listening, please speak…</small>";
-				};
-
-				recognition.onresult = function (event) {
-					var transcript = event.results[0][0].transcript;
-					var confidence = event.results[0][0].confidence;
-					action.innerHTML = "<small>stopped listening, hope you are done…</small>"
-					document.getElementById('location').value = transcript;
-					recognition.stop();
-					submitForm()
-				};
-			};
-		}
-
-		function submitForm() {
-			if (document.getElementById('role').value != "") {
-				if (document.getElementById('location').value != "") {
-					document.getElementById('preferenceForm').submit();
+			function submitForm() {
+				if (document.getElementById('role').value != "") {
+					if (document.getElementById('location').value != "") {
+						document.getElementById('preferenceForm').submit();
+					}
 				}
 			}
 		}
-
 	</script>
 </body>
 

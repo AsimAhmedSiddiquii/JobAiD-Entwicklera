@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body id="body" onload="start()">
+<body id="body">
 	<div class="main">
 		<nav class="navbar navbar-expand navbar-light navbar-bg">
 			<a class="sidebar-toggle js-sidebar-toggle">
@@ -24,41 +24,41 @@
 			<div class="navbar-collapse collapse">
 				<ul class="navbar-nav navbar-align">
 					<li class="nav-item dropdown">
-						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(1.5)"
-							id="alertsDropdown" data-bs-toggle="dropdown">
+						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(1.5)" id="alertsDropdown"
+							data-bs-toggle="dropdown">
 							<div class="position-relative">
 								<i class="fa fa-search-minus" style="font-size: xx-large;" aria-hidden="true"></i>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(1.75)"
-							id="alertsDropdown" data-bs-toggle="dropdown">
+						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(1.75)" id="alertsDropdown"
+							data-bs-toggle="dropdown">
 							<div class="position-relative">
 								<i class="fa fa-window-restore" style="font-size: xx-large;" aria-hidden="true"></i>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(2)"
-							id="alertsDropdown" data-bs-toggle="dropdown">
+						<a role="button" class="nav-icon dropdown-toggle" onclick="adjust(2)" id="alertsDropdown"
+							data-bs-toggle="dropdown">
 							<div class="position-relative">
 								<i class="fa fa-search-plus" style="font-size: xx-large;" aria-hidden="true"></i>
 							</div>
 						</a>
 					</li>
-					
+
 					<li class="nav-item dropdown">
-					
-						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="/logout" >
+
+						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="/logout">
 							<span class="text-dark">Logout</span>
 						</a>
-						
+
 					</li>
 				</ul>
 			</div>
 		</nav>
-		
+
 		<div class="container">
 			<!-- 1st Row -->
 			<div class="row">
@@ -134,58 +134,62 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <script>
-	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+	if (sessionStorage.getItem("voice") == true) {
+		start();
 
-	var action = document.getElementById('action');
+		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-	let speech = new SpeechSynthesisUtterance();
-	speech.lang = "en-US";
-	speech.volume = 1;
-	speech.rate = 1;
-	speech.pitch = 1;
+		var action = document.getElementById('action');
 
-	if (!isChrome) {
-		alert('Voice input not available');
-	}
+		let speech = new SpeechSynthesisUtterance();
+		speech.lang = "en-US";
+		speech.volume = 1;
+		speech.rate = 1;
+		speech.pitch = 1;
 
-	function start() {
-		var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-		var recognition = new SpeechRecognition();
+		if (!isChrome) {
+			alert('Voice input not available');
+		}
 
-		speech.text = 'Welcome to the Dashboard, you need to choose the section to proceed, say Jobs, Training, Resume, Blogs, applied';
-		window.speechSynthesis.speak(speech);
-		speech.onend = function (event) {
-			recognition.start();
+		function start() {
+			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+			var recognition = new SpeechRecognition();
 
-			recognition.onstart = function () {
+			speech.text = 'Welcome to the Dashboard, you need to choose the section to proceed, say Jobs, Training, Resume, Blogs, applied';
+			window.speechSynthesis.speak(speech);
+			speech.onend = function (event) {
+				recognition.start();
+
+				recognition.onstart = function () {
+				};
+
+				recognition.onresult = function (event) {
+					var transcript = event.results[0][0].transcript;
+					var confidence = event.results[0][0].confidence;
+					console.log(transcript + '1');
+					recognition.stop();
+					if (transcript.includes('jobs')) {
+						askForEmail();
+					} else if (transcript.includes('training')) {
+						window.location.href = '/training'
+					} else if (transcript.includes('resume')) {
+						window.location.href = '/resume'
+					} else if (transcript.includes('blogs')) {
+						window.location.href = '/blogs'
+					} else if (transcript.includes('applied')) {
+						window.location.href = '/apply/applied'
+					}
+				};
 			};
-
-			recognition.onresult = function (event) {
-				var transcript = event.results[0][0].transcript;
-				var confidence = event.results[0][0].confidence;
-				console.log(transcript + '1');
-				recognition.stop();
-				if (transcript.includes('jobs')) {
-					askForEmail();
-				} else if (transcript.includes('training')) {
-					window.location.href = '/training'
-				} else if (transcript.includes('resume')) {
-					window.location.href = '/resume'
-				} else if (transcript.includes('blogs')) {
-					window.location.href = '/blogs'
-				} else if (transcript.includes('applied')) {
-					window.location.href = '/apply/applied'
-				}
-			};
-		};
+		}
 	}
 
 	function adjust(size) {
-		
+
 		var h1Elements = document.getElementsByTagName("h1");
 
-		for(var i = 0; i < h1Elements.length; i++) {
-   			h1Elements[i].style.fontSize = size + "rem";
+		for (var i = 0; i < h1Elements.length; i++) {
+			h1Elements[i].style.fontSize = size + "rem";
 		}
 	}
 

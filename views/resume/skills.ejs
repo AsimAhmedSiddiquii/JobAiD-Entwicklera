@@ -127,114 +127,116 @@
 	</script>
 
 	<script>
-		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+		if (sessionStorage.getItem("voice") == true) {
+			var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
-		var action = document.getElementById('action');
+			var action = document.getElementById('action');
 
-		let speech = new SpeechSynthesisUtterance();
-		speech.lang = "en-US";
-		speech.volume = 1;
-		speech.rate = 1;
-		speech.pitch = 1;
+			let speech = new SpeechSynthesisUtterance();
+			speech.lang = "en-US";
+			speech.volume = 1;
+			speech.rate = 1;
+			speech.pitch = 1;
 
-		if (!isChrome) {
-			alert('Voice input not available');
-		}
+			if (!isChrome) {
+				alert('Voice input not available');
+			}
 
-		function start() {
-			var skills = []
-			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-			var recognition = new SpeechRecognition();
+			function start() {
+				var skills = []
+				var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+				var recognition = new SpeechRecognition();
 
-			speech.text = 'Select your Skills';
-			window.speechSynthesis.speak(speech);
-			speech.onend = function (event) {
-				recognition.start();
+				speech.text = 'Select your Skills';
+				window.speechSynthesis.speak(speech);
+				speech.onend = function (event) {
+					recognition.start();
 
-				recognition.onstart = function () {
-					action.innerHTML = "<small>listening, please speak…</small>";
+					recognition.onstart = function () {
+						action.innerHTML = "<small>listening, please speak…</small>";
+					};
+
+					recognition.onresult = function (event) {
+						var transcript = event.results[0][0].transcript;
+						var confidence = event.results[0][0].confidence;
+						console.log(transcript + '1');
+						action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+
+						if (transcript.includes('dancing')) {
+							document.getElementById("dancing").setAttribute('checked', 'checked');
+							document.getElementById("dancing").click();
+							skills.push(document.getElementById("dancing").value);
+						}
+						if (transcript.includes('singing')) {
+							document.getElementById("singing").setAttribute('checked', 'checked');
+							document.getElementById("singing").click();
+							skills.push(document.getElementById("singing").value);
+						}
+						if (transcript.includes('acting')) {
+							document.getElementById("acting").setAttribute('checked', 'checked');
+							document.getElementById("acting").click();
+							skills.push(document.getElementById("acting").value);
+						}
+						if (transcript.includes('developer')) {
+							document.getElementById("developer").setAttribute('checked', 'checked');
+							document.getElementById("developer").click();
+							skills.push(document.getElementById("developer").value);
+						}
+						if (transcript.includes('freelancer')) {
+							document.getElementById("freelancer").setAttribute('checked', 'checked');
+							document.getElementById("freelancer").click();
+							skills.push(document.getElementById("freelancer").value);
+						}
+						if (transcript.includes('teaching')) {
+							document.getElementById("teaching").setAttribute('checked', 'checked');
+							document.getElementById("teaching").click();
+							skills.push(document.getElementById("teaching").value);
+						}
+						if (transcript.includes('ms_office')) {
+							document.getElementById("ms_office").setAttribute('checked', 'checked');
+							document.getElementById("ms_office").click();
+							skills.push(document.getElementById("ms_office").value);
+						}
+						if (transcript.includes('technical')) {
+							document.getElementById("technical").setAttribute('checked', 'checked');
+							document.getElementById("technical").click();
+							skills.push(document.getElementById("technical").value);
+						}
+						if (transcript.includes('advertising')) {
+							document.getElementById("advertising").setAttribute('checked', 'checked');
+							document.getElementById("advertising").click();
+							skills.push(document.getElementById("advertising").value);
+						}
+						if (transcript.includes('marketing')) {
+							document.getElementById("marketing").setAttribute('checked', 'checked');
+							document.getElementById("marketing").click();
+							skills.push(document.getElementById("marketing").value);
+						}
+						if (transcript.includes('sales')) {
+							document.getElementById("sales").setAttribute('checked', 'checked');
+							document.getElementById("sales").click();
+							skills.push(document.getElementById("sales").value);
+						}
+						if (transcript.includes('administration')) {
+							document.getElementById("administration").setAttribute('checked', 'checked');
+							document.getElementById("administration").click();
+							skills.push(document.getElementById("administration").value);
+						}
+						if (transcript.includes('nursing')) {
+							document.getElementById("nursing").setAttribute('checked', 'checked');
+							document.getElementById("nursing").click();
+							skills.push(document.getElementById("nursing").value);
+						}
+						recognition.stop();
+
+						console.log(skills)
+						document.getElementById('hiddenSkills').value = skills
+
+
+						document.getElementById('skillForm').submit();
+					};
 				};
-
-				recognition.onresult = function (event) {
-					var transcript = event.results[0][0].transcript;
-					var confidence = event.results[0][0].confidence;
-					console.log(transcript + '1');
-					action.innerHTML = "<small>stopped listening, hope you are done…</small>"
-
-					if (transcript.includes('dancing')) {
-						document.getElementById("dancing").setAttribute('checked', 'checked');
-						document.getElementById("dancing").click();
-						skills.push(document.getElementById("dancing").value);
-					}
-					if (transcript.includes('singing')) {
-						document.getElementById("singing").setAttribute('checked', 'checked');
-						document.getElementById("singing").click();
-						skills.push(document.getElementById("singing").value);
-					}
-					if (transcript.includes('acting')) {
-						document.getElementById("acting").setAttribute('checked', 'checked');
-						document.getElementById("acting").click();
-						skills.push(document.getElementById("acting").value);
-					}
-					if (transcript.includes('developer')) {
-						document.getElementById("developer").setAttribute('checked', 'checked');
-						document.getElementById("developer").click();
-						skills.push(document.getElementById("developer").value);
-					}
-					if (transcript.includes('freelancer')) {
-						document.getElementById("freelancer").setAttribute('checked', 'checked');
-						document.getElementById("freelancer").click();
-						skills.push(document.getElementById("freelancer").value);
-					}
-					if (transcript.includes('teaching')) {
-						document.getElementById("teaching").setAttribute('checked', 'checked');
-						document.getElementById("teaching").click();
-						skills.push(document.getElementById("teaching").value);
-					}
-					if (transcript.includes('ms_office')) {
-						document.getElementById("ms_office").setAttribute('checked', 'checked');
-						document.getElementById("ms_office").click();
-						skills.push(document.getElementById("ms_office").value);
-					}
-					if (transcript.includes('technical')) {
-						document.getElementById("technical").setAttribute('checked', 'checked');
-						document.getElementById("technical").click();
-						skills.push(document.getElementById("technical").value);
-					}
-					if (transcript.includes('advertising')) {
-						document.getElementById("advertising").setAttribute('checked', 'checked');
-						document.getElementById("advertising").click();
-						skills.push(document.getElementById("advertising").value);
-					}
-					if (transcript.includes('marketing')) {
-						document.getElementById("marketing").setAttribute('checked', 'checked');
-						document.getElementById("marketing").click();
-						skills.push(document.getElementById("marketing").value);
-					}
-					if (transcript.includes('sales')) {
-						document.getElementById("sales").setAttribute('checked', 'checked');
-						document.getElementById("sales").click();
-						skills.push(document.getElementById("sales").value);
-					}
-					if (transcript.includes('administration')) {
-						document.getElementById("administration").setAttribute('checked', 'checked');
-						document.getElementById("administration").click();
-						skills.push(document.getElementById("administration").value);
-					}
-					if (transcript.includes('nursing')) {
-						document.getElementById("nursing").setAttribute('checked', 'checked');
-						document.getElementById("nursing").click();
-						skills.push(document.getElementById("nursing").value);
-					}
-					recognition.stop();
-
-					console.log(skills)
-					document.getElementById('hiddenSkills').value = skills
-
-
-					document.getElementById('skillForm').submit();
-				};
-			};
+			}
 		}
 
 	</script>
