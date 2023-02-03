@@ -2963,8 +2963,8 @@ fieldset:disabled .btn {
   background-color: #EEA47FFF;
   border-color: #3b7ddd;
   color: #000;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
   height: 50px;
   width: 100%;
 }
@@ -11167,7 +11167,6 @@ fieldset:disabled .btn {
 .btn-light:disabled,
 .btn-light:focus,
 .btn-light:hover:not(:disabled):not(.disabled),
-.btn-primary,
 .btn-primary.disabled,
 .btn-primary.focus,
 .btn-primary.hover:not(:disabled):not(.disabled),

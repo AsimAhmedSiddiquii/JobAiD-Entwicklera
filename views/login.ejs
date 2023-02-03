@@ -86,6 +86,32 @@
 			var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 			var recognition = new SpeechRecognition();
 
+			speech.text = 'Do you want Voice Assistant, say yes or no';
+			window.speechSynthesis.speak(speech);
+			speech.onend = function (event) {
+				recognition.start();
+
+				recognition.onstart = function () {
+					action.innerHTML = "<small>listening, please speak…</small>";
+				};
+
+				recognition.onresult = function (event) {
+					var transcript = event.results[0][0].transcript;
+					var confidence = event.results[0][0].confidence;
+					console.log(transcript + '1');
+					action.innerHTML = "<small>stopped listening, hope you are done…</small>"
+					recognition.stop();
+					if (transcript.includes('yes')) {
+						sessionStorage.setItem("voice", true);
+						askForLogin();
+					} else {
+						sessionStorage.setItem("voice", false);
+					}
+				};
+			};
+		}
+
+		function askForLogin() {
 			speech.text = 'This is login page, if you want to login say, login, to register say, register';
 			window.speechSynthesis.speak(speech);
 			speech.onend = function (event) {
