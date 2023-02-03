@@ -2,6 +2,8 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
+const checkLogin = require('../middlewares/login')
+
 const User = require("../models/user");
 const Resume = require("../models/resume");
 
@@ -66,8 +68,13 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get("/dashboard", (req, res, next) => {
+router.get("/dashboard", checkLogin, (req, res, next) => {
   res.render("home");
+});
+
+router.get("/logout", (req, res, next) => {
+  req.session.destroy();
+  res.redirect("/login");
 });
 
 module.exports = router;
