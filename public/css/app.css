@@ -115,6 +115,10 @@ h6 {
   margin-top: 0;
 }
 
+.font-white {
+  color: #fff;
+}
+
 .h1,
 h1 {
   font-size: 1.75rem;
@@ -227,12 +231,12 @@ sup {
 }
 
 a {
-  color: #3b7ddd;
+  color: #fff;
   text-decoration: none;
 }
 
 a:hover {
-  color: #2f64b1;
+  font-weight: 600;
   text-decoration: underline;
 }
 
@@ -1817,7 +1821,8 @@ progress {
   --bs-table-hover-color: #495057;
   --bs-table-hover-bg: rgba(0, 0, 0, 0.038);
   border-color: #dee2e6;
-  color: #495057;
+  color: #fff;
+  font-size: 16px;
   margin-bottom: 1rem;
   vertical-align: top;
   width: 100%;
@@ -2019,8 +2024,8 @@ progress {
 
 .form-label {
   margin-bottom: 0.5rem;
-  font-size: 16px;
-  color: #000;
+  font-size: 18px;
+  color: #fff;
 }
 
 .col-form-label {
@@ -2215,7 +2220,7 @@ progress {
 
 .form-control-lg {
   border-radius: 0.3rem;
-  font-size: 16px;
+  font-size: 18px;
   min-height: calc(2.1875rem + 12px);
   padding: 0.4rem 1rem;
 }
@@ -2940,7 +2945,7 @@ textarea.form-control-lg {
 .btn:hover {
   color: #495057;
   text-decoration: none;
-}
+}primary
 
 .btn-check:focus + .btn,
 .btn:focus {
@@ -2956,9 +2961,9 @@ fieldset:disabled .btn {
 }
 
 .btn-primary {
-  background-color: #871282;
+  background-color: #EEA47FFF;
   border-color: #3b7ddd;
-  color: #fff;
+  color: #000;
   font-size: 16px;
   font-weight: 600;
   height: 50px;
@@ -2970,7 +2975,7 @@ fieldset:disabled .btn {
 .btn-primary:hover {
   background-color: #326abc;
   border-color: #2f64b1;
-  color: #fff;
+  color: #000;
 }
 
 .btn-check:focus + .btn-primary,
@@ -2985,7 +2990,7 @@ fieldset:disabled .btn {
 .show > .btn-primary.dropdown-toggle {
   background-color: #2f64b1;
   border-color: #2c5ea6;
-  color: #fff;
+  color: #000;
 }
 
 .btn-check:active + .btn-primary:focus,
@@ -4771,9 +4776,9 @@ fieldset:disabled .btn {
   cursor: pointer;
   word-wrap: break-word;
   background-clip: border-box;
-  background-color: #ffa535;
+  background-color: #00539CFF;
   border: 0 solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -12359,8 +12364,6 @@ a.sidebar-link svg {
 .sidebar-toggle {
   cursor: pointer;
   display: flex;
-  height: 26px;
-  width: 26px;
 }
 
 .sidebar.collapsed {
@@ -12471,7 +12474,7 @@ pre.snippet {
 a {
   cursor: pointer;
   font-size: 16px;
-  color: #871282;
+  color: #fff;
   font-weight: 600;
 }
 

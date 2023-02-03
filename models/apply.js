@@ -6,7 +6,7 @@ const Job = require('../models/job')
 const applySchema = new mongoose.Schema({
     userId: { type: mongoose.SchemaTypes.ObjectId, ref: User },
     jobId: { type: mongoose.SchemaTypes.ObjectId, ref: Job },
-    status: {type: String, default: "Pending"},
+    status: {type: String, default: "Applied"},
 });
 
 module.exports = mongoose.model("applies", applySchema);
