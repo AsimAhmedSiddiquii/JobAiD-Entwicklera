@@ -153,7 +153,7 @@ p {
 
 abbr[data-bs-original-title],
 abbr[title] {
-  cursor: help;
+  cursor: help;l
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   -webkit-text-decoration-skip-ink: none;
@@ -169,6 +169,7 @@ address {
 ol,
 ul {
   padding-left: 2rem;
+  color: #fff;
 }
 
 dl,

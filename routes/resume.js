@@ -61,7 +61,7 @@ router.post("/skill", checkLogin, async (req, res, next) => {
       resume.skills = req.body.skills;
     }
     await resume.save();
-    res.redirect("/job/results");
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
   }
