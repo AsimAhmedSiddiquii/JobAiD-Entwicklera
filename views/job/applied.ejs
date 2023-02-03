@@ -15,31 +15,22 @@
         <table class="table mt-5 mb-5">
             <thead>
               <tr>
-                <th scope="col">User Name</th>
                 <th scope="col">Company Name</th>
                 <th scope="col">Job Title</th>
                 <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td scope="row">Raheen</td>
-                <td>RRM</td>
-                <td>Co-Founder</td>
-                <td>Selected</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+              <% if(appliedData.length != 0) { %>
+              <% appliedData.forEach(function(data){ %>
+                <tr>
+                  <td><%= data.jobId.company %></td>
+                  <td><%= data.jobId.title %></td>
+                  <td><%= data.status %></td>
+                </tr>
+                <%  }) } else { %>
+                  <td colspan="4">No applied history</td>
+                  <% } %>
             </tbody>
         </table>
     </div>

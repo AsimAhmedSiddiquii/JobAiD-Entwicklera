@@ -21,25 +21,66 @@
 			<div class="col-md-12">
 				<div class="card mt-3">
 					<div class="card-body">
-						<h6 class="card-title">Frontend Developer</h6>
-						<h2>Entwicklera</h2>
-						Skills Required -
+						<h6 class="card-title" id="job-title"></h6>
+						<h2 id="company"></h2>
+						
 						<ul class="card-text">
-							<li>Add New Raw Material</li>
-							<li>List of Raw Materials</li>
-							<li>Purchase Raw Material</li>
-							<li>Purchase History</li>
-							<li>Raw Material Stocks</li>
+							<li id="ratings"></li>
+							<li id="reviews"></li>
+							<li id="experience"></li>
+							<li id="salary"></li>
+							<li id="location"></li>
+							<li id="posted"></li>
 						</ul>
-						<p class="text-justify">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus
-							deleniti similique ea provident atque perspiciatis quo dolor ducimus omnis repellat fuga
-							distinctio explicabo, suscipit, quidem fugit dicta eum nulla consequatur.</p>
-						<button type="submit" class="btn btn-primary">Apply</button>
+						<div class="row">
+							<div class="col-6">
+								<button type="button" onclick="next()" class="btn btn-primary">Next</button>
+							</div>
+							<div class="col-6">
+								<button type="button" onclick="navigate()" class="btn btn-primary">Apply</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
+
+	<script>
+		function ObjectId(value){}
+		var data = [<%- jobs %>];
+		var index = 0;
+		setData();
+
+		function setData() {
+			document.getElementById('job-title').innerText = data[index].title==undefined?'Not Available':data[index].title;
+			document.getElementById('company').innerText = data[index].company;
+			document.getElementById('ratings').innerText = data[index].ratings==undefined?'Not Available':data[index].ratings;
+			document.getElementById('reviews').innerText = data[index].reviews==undefined?'Not Available':data[index].reviews;
+			document.getElementById('experience').innerText = data[index].experience;
+			document.getElementById('salary').innerText = data[index].salary;
+			document.getElementById('location').innerText = data[index].location;
+			document.getElementById('posted').innerText = data[index].posted;
+		}
+
+
+		function next() {
+			if (index < data.length - 1) {
+				index += 1
+				setData()
+			} else {
+				index = 0
+				setData()
+			}
+		}
+
+		function navigate(){
+			console.log(data[index]._id)
+			window.location.href = '/apply/'+data[index].title + '/' + data[index].company;
+		}
+
+	</script>
 
 	<script src="/js/app.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
