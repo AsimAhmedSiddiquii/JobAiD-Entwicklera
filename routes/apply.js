@@ -56,7 +56,8 @@ router.get("/:title/:company", checkLogin, async (req, res, next) => {
   </head>
   <body>
   
-  <h2>Resume</h2>
+  <h5> Dear Hiring Managaer,</h5>
+  <h4>Applied for ` + job.title + ` at ` + job.company + `</h4>
   
   <table>
     <tr>
